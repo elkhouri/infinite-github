@@ -1,42 +1,9 @@
-<template>
-  <main>
-    <img
-      alt="Vue logo"
-      src="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png"
-      style="width: 100%"
-    />
-    <div v-for="repo in repos" :key="repo.id" class="repo">
-      <div>{{ repo.name }}</div>
-      <div>{{ repo.description }}</div>
-      <div>{{ repo.url }}</div>
-      <br />
-    </div>
-    <div v-if="isLast">No More Repositories!</div>
-  </main>
-</template>
-
 <script lang="ts">
 import axios from "axios";
 import Vue from 'vue';
-
-interface Links {
-  [k: string]: string;
-  // prev: string,
-  // next: string,
-  // first: string,
-  // last: string
-}
-
-function parser(linkStr: string) {
-  return linkStr.split(',').reduce((prev: Links, cur: string) => {
-    const link: string = cur.split(';')[0].match(/[^_]page=(\d+)/)?.[1] || ''
-    const rel: string = cur.split(';')[1].match(/rel="(.+)"/)?.[1] || ''
-    prev[rel] = link
-    return prev
-  }, {})
-}
-
-const PER_PAGE = 2
+import { Links } from '@/classes/Links'
+import { PER_PAGE } from '@/constants/constants'
+import parser from '@/utils/linkParser'
 
 export default Vue.component('test', {
   name: 'test',
@@ -95,16 +62,4 @@ export default Vue.component('test', {
     }
   }
 })
-
-
 </script>
-
-<style scoped lang="scss">
-main {
-  // min-height: 200vh;
-}
-.repo {
-  margin: 1rem;
-  border: 1px solid gray;
-}
-</style>
