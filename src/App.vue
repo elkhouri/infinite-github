@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <HelloWorld/>
+    <Github/>
   </div>
 </template>
 
 <script lang="ts">
-import HelloWorld from './components/HelloWorld.vue';
+import Github from './components/Github/Github.vue';
 
 export default {
-  components: { HelloWorld }
+  components: { Github }
 }
 
 </script>
