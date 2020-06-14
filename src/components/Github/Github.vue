@@ -34,9 +34,8 @@ export default Vue.component('test', {
   methods: {
     ...mapActions(['fetchRepos']),
     handleScroll: debounce(function () {
-      /*eslint-disable */
+      // eslint-disable-next-line
       this.scroll()
-      /*eslint-enable */
     }, 300),
     scroll () {
       if (this.isLast) return
