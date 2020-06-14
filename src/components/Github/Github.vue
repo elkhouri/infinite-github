@@ -1,4 +1,5 @@
 <script lang="ts">
+import debounce from 'lodash-es/debounce';
 import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex'
 import { GITHUB_USERNAME } from '@/constants/constants'
@@ -32,7 +33,12 @@ export default Vue.component('test', {
 
   methods: {
     ...mapActions(['fetchRepos']),
-    handleScroll() {
+    handleScroll: debounce(function () {
+      /*eslint-disable */
+      this.scroll()
+      /*eslint-enable */
+    }, 300),
+    scroll () {
       if (this.isLast) return
 
       const scrollY = window.scrollY

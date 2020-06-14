@@ -1,21 +1,21 @@
 <main>
   <h1>Public Repositories for {{ GITHUB_USERNAME }}</h1>
-  <h3 v-if="loadingState === LOADING">Loading...</h3>
-  <h3 v-else-if="loadingState === ERROR">There has been an error. Please Try again later.</h3>
-  <div v-else-if="loadingState === SUCCESS" class="repoContainer">
+  <h3 v-if="loadingState === ERROR">There has been an error. Please Try again later.</h3>
+  <div v-else class="repoContainer">
     <div v-for="repo in repos" :key="repo.id" class="repo">
       <h3>Repository Name</h3>
       <div>{{ repo.name }}</div>
       <br>
-
+      
       <h3>Repository Description</h3>
       <div>{{ repo.description ? repo.description : '-' }}</div>
       <br>
-
+      
       <h3>Repository Url</h3>
       <div><a :href="repo.html_url" target="_blank">{{ repo.html_url }}</a></div>
       <br />
     </div>
+    <h3 v-if="loadingState === LOADING">Loading...</h3>
     <div v-if="isLast">No More Repositories!</div>
     <div v-else>More on scroll</div>
   </div>
