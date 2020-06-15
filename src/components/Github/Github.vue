@@ -5,8 +5,8 @@ import { mapGetters, mapActions } from 'vuex'
 import { GITHUB_USERNAME } from '@/constants/constants'
 import * as loadingStates from '@/constants/loadingStates'
 
-export default Vue.component('test', {
-  name: 'test',
+export default Vue.component('Github', {
+  name: 'Github',
   data () {
     return {
       GITHUB_USERNAME,
