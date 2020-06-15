@@ -3,6 +3,7 @@ import Vue from 'vue'
 import axios from "axios";
 import { Links } from '@/classes/Links'
 import { PER_PAGE } from '@/constants/constants'
+import * as loadingStates from '@/constants/loadingStates'
 import parser from '@/utils/linkParser'
 
 Vue.use(Vuex)
@@ -11,7 +12,7 @@ export default new Vuex.Store({
     repos: [],
     currentPage: 1,
     links: {} as Links,
-    loadingState: "empty"
+    loadingState: loadingStates.EMPTY
   },
   getters: {
     repos: state => state.repos,
@@ -36,7 +37,7 @@ export default new Vuex.Store({
   actions: {
     async fetchRepos ({ state, commit }, username) {
       try {
-        commit('UPDATE_LOADING_STATE', 'loading')
+        commit('UPDATE_LOADING_STATE', loadingStates.LOADING)
         const response = await axios.get(`https://api.github.com/users/${username}/repos`, {
           params: {
             per_page: PER_PAGE,
@@ -48,9 +49,9 @@ export default new Vuex.Store({
         commit('UPDATE_LINKS', parser(link))
         commit('UPDATE_REPOS', state.repos.concat(data))
         commit('UPDATE_CURRENT_PAGE', state.currentPage + 1)
-        commit('UPDATE_LOADING_STATE', 'success')
+        commit('UPDATE_LOADING_STATE', loadingStates.SUCCESS)
       } catch (e) {
-        commit('UPDATE_LOADING_STATE', 'error')
+        commit('UPDATE_LOADING_STATE', loadingStates.ERROR)
         alert(e)
         console.error(e)
       }

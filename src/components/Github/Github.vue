@@ -1,5 +1,5 @@
 <script lang="ts">
-import debounce from 'lodash-es/debounce';
+import debounce from 'lodash/debounce';
 import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex'
 import { GITHUB_USERNAME } from '@/constants/constants'
@@ -22,22 +22,21 @@ export default Vue.component('test', {
   },
 
   created() {
-    this.handleScroll()
+    this.debouncedScroll()
 
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('scroll', this.debouncedScroll);
   },
 
   beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('scroll', this.debouncedScroll);
   },
 
   methods: {
     ...mapActions(['fetchRepos']),
-    handleScroll: debounce(function () {
-      // eslint-disable-next-line
-      this.scroll()
+    debouncedScroll: debounce(function () {
+      this.handleScroll()
     }, 300),
-    scroll () {
+    handleScroll () {
       if (this.isLast) return
 
       const scrollY = window.scrollY
